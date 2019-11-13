@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="noticeMapper">
+  <!-- list -->
+  	<select id="boardList" resultType="com.iu.s4.model.BoardNoticeVO" parameterType="com.iu.s4.util.Pager">
+ 		SELECT * FROM
+		(SELECT N.*, ROWNUM R FROM
+		(SELECT * FROM notice 
+		<choose>
+			<when test="kind == 'kt'">
+				WHERE title LIKE '%'||#{search}||'%'
+			</when>
+			<when test="kind == 'kc'">
+				WHERE contents LIKE '%'||#{search}||'%'
+			</when>
+			<when test="kind == 'kw'">
+				WHERE writer LIKE '%'||#{search}||'%'
+			</when>
+		</choose>
+		ORDER BY num DESC) N)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+ 	</select>
+  <select id="boardCount" resultType="java.lang.Integer" parameterType="com.iu.s4.util.Pager">
+ 		SELECT COUNT(num) FROM notice
+ 		<choose>
+			<when test="kind == 'kt'">
+				WHERE title LIKE '%'||#{search}||'%'
+			</when>
+			<when test="kind == 'kw'">
+				WHERE writer LIKE '%'||#{search}||'%'
+			</when>
+			<otherwise>
+				WHERE contents LIKE '%'||#{search}||'%'
+			</otherwise>
+		</choose>
+ 	</select>
+
+  </mapper>
