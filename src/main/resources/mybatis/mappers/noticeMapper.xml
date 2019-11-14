@@ -2,13 +2,14 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="noticeMapper">
-  <!-- list -->
-  	<select id="boardList" resultType="com.iu.s4.model.BoardNoticeVO" parameterType="com.iu.s4.util.Pager">
- 		SELECT * FROM
+
+<mapper namespace="noticeMapper">
+	<!-- list -->
+	<select id="boardList" resultType="BoardNoticeVO"
+		parameterType="Pager">
+		SELECT * FROM
 		(SELECT N.*, ROWNUM R FROM
-		(SELECT * FROM notice 
+		(SELECT * FROM notice
 		<choose>
 			<when test="kind == 'kt'">
 				WHERE title LIKE '%'||#{search}||'%'
@@ -22,10 +23,16 @@
 		</choose>
 		ORDER BY num DESC) N)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	<!-- 1개 -->
+ 	<select id="boardSelect" resultType="BoardNoticeVO" parameterType="BoardNoticeVO">
+ 		SELECT * FROM notice
+ 		WHERE num = #{num}
  	</select>
-  <select id="boardCount" resultType="java.lang.Integer" parameterType="com.iu.s4.util.Pager">
- 		SELECT COUNT(num) FROM notice
- 		<choose>
+	<select id="boardCount" resultType="Integer"
+		parameterType="Pager">
+		SELECT COUNT(num) FROM notice
+		<choose>
 			<when test="kind == 'kt'">
 				WHERE title LIKE '%'||#{search}||'%'
 			</when>
@@ -36,6 +43,18 @@
 				WHERE contents LIKE '%'||#{search}||'%'
 			</otherwise>
 		</choose>
- 	</select>
-
-  </mapper>
+	</select>
+	<insert id="boardWrite" parameterType="BoardVO">
+		INSERT INTO notice
+		VALUES(board_seq.nextval, #{title}, #{writer}, #{contents}, SYSDATE,
+		0)
+	</insert>
+	<delete id="boardDelete" parameterType="Integer">
+ 		DELETE notice
+ 		WHERE num = #{num}
+ 	</delete>
+ 		<update id="boardUpdate" parameterType="BoardVO">
+ 		UPDATE notice SET title = #{title}, contents = #{contents}
+ 		WHERE num = #{num}
+ 	</update>
+</mapper>

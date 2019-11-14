@@ -6,12 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${board} List</title>
 <c:import url="../layout/bootStrap.jsp" />
 </head>
 <body>
 	<c:import url="../layout/nav.jsp" />
-	<h1>List Page</h1>
+	<h1>${board} List</h1>
 	<div class="container">
 		<table class="table ">
 
@@ -22,11 +22,15 @@
 				<th>DATE</th>
 				<th>HIT</th>
 			</tr>
-
 			<c:forEach items="${list}" var="vo">
 				<tr>
-					<td>${ vo.num }</td>
-					<td><a href="noticeSelect?num=${ vo.num }">${ vo.title }</a></td>
+					<td>${ vo.num }</td>	
+					<td>
+					<c:catch>
+					<c:forEach begin="1" end="${ vo.depth }">--</c:forEach>
+					</c:catch>
+					<a href="${board}Select?num=${ vo.num }">${ vo.title }</a>
+					</td>
 					<td>${ vo.writer }</td>
 					<td>${ vo.reg_date }</td>
 					<td>${ vo.hit }</td>
@@ -49,7 +53,7 @@
 		</div>
 		<!-- search -->
 		<div>
-			<form id="frm" action="./boardList" method="get">
+			<form id="frm" action="./${board}List" method="get">
 			<input type="hidden" id="curPage" value="1" name="curPage">
 			<select name="kind">
 				<option id="kt" value="kt">title</option>
@@ -67,8 +71,9 @@
 		</c:if>
 	</div>
 	<script type="text/javascript">
+		var board = '${board}';
 		$("#btn_write").click(function() {
-			location.href = "boardWrite";
+			location.href = board+"Write";
 		});	
 		var kind = '${pager.kind}';
 		if(kind == ''){

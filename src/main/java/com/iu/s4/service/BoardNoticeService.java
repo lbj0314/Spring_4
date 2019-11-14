@@ -25,26 +25,24 @@ public class BoardNoticeService implements BoardService {
 
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		boardVO.getNum();
+		return boardNoticeDAO.boardSelect(boardVO);
 	}
 
 	@Override
 	public int boardWrite(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return boardNoticeDAO.boardWrite(boardVO);
 	}
 
 	@Override
 	public int boardUpdate(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return boardNoticeDAO.boardUpdate(boardVO);
 	}
 
 	@Override
 	public int boardDelete(BoardVO boardVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		boardVO.getNum();
+		return boardNoticeDAO.boardDelete(boardVO);
 	}
 
 }

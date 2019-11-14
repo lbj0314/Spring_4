@@ -5,7 +5,7 @@
   
   <mapper namespace="qnaMapper">
   <!-- 전체 -->
- 	<select id="boardList" parameterType="com.iu.s4.util.Pager" resultType="com.iu.s4.model.BoardQnaVO">
+ 	<select id="boardList" parameterType="Pager" resultType="BoardQnaVO">
  		SELECT * FROM
  		(SELECT Q.*, ROWNUM R FROM
 		(SELECT * FROM qna
@@ -20,11 +20,16 @@
 				WHERE contents LIKE '%'||#{search}||'%'
 			</otherwise>
 		</choose>
-		ORDER BY ref DESC, depth ASC) Q)
+		ORDER BY ref DESC, step ASC) Q)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
- 		
  	</select>
- 	<select id="boardCount" resultType="java.lang.Integer" parameterType="com.iu.s4.util.Pager">
+ 	<!-- 1개 -->
+ 	<select id="boardSelect" resultType="BoardQnaVO" parameterType="BoardQnaVO">
+ 		SELECT * FROM qna
+ 		WHERE num = #{num}
+ 	</select>
+ 	<select id="boardCount" resultType="Integer" parameterType="Pager">
+
  		SELECT COUNT(num) FROM qna
  		<choose>
 			<when test="kind == 'kt'">
@@ -37,5 +42,32 @@
 				WHERE contents LIKE '%'||#{search}||'%'
 			</otherwise>
 		</choose>
+
  	</select>
+ 	<insert id="boardWrite" parameterType="BoardVO">
+ 		
+ 		INSERT INTO qna
+ 		VALUES (board_seq.nextval, #{title}, #{writer}, #{contents}, SYSDATE, 0, board_seq.currval, 0, 0)
+ 		
+ 	</insert>
+ 	<delete id="boardDelete" parameterType="Integer">
+ 	
+ 		DELETE qna
+ 		WHERE num = #{num}
+ 		
+ 	</delete>
+ 		<update id="boardUpdate" parameterType="BoardVO">
+ 		
+ 		UPDATE qna SET title = #{title}, contents = #{contents}
+ 		WHERE num = #{num}
+ 		
+ 	</update>
+ 	<!-- reply -->
+ 	<insert id="boardReply" parameterType="BoardQnaVO">
+		INSERT INTO qna VALUES(board_seq.nextval, #{title}, #{writer}, #{contents}, SYSDATE, 0, #{ref}, #{step}, #{depth})
+	</insert>
+
+	<update id="boardReplyUpdate" parameterType="BoardQnaVO">
+		UPDATE qna SET step = step+1 WHERE ref = #{ref} AND step > #{step}
+	</update>
  </mapper>
