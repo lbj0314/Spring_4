@@ -11,6 +11,5 @@
   		
   		<typeAlias type="java.lang.String" alias="String"/>
   		<typeAlias type="java.lang.Integer" alias="Integer"/>
- 		<typeAlias type="java.util.Map" alias="Map"/>
   	</typeAliases>
   </configuration>

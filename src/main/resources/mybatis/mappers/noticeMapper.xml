@@ -4,34 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="noticeMapper">
-	<!-- list -->
-	<select id="boardList" resultType="BoardNoticeVO"
-		parameterType="Pager">
-		SELECT * FROM
-		(SELECT N.*, ROWNUM R FROM
-		(SELECT * FROM notice
-		<choose>
-			<when test="kind == 'kt'">
-				WHERE title LIKE '%'||#{search}||'%'
-			</when>
-			<when test="kind == 'kc'">
-				WHERE contents LIKE '%'||#{search}||'%'
-			</when>
-			<when test="kind == 'kw'">
-				WHERE writer LIKE '%'||#{search}||'%'
-			</when>
-		</choose>
-		ORDER BY num DESC) N)
-		WHERE R BETWEEN #{startRow} AND #{lastRow}
-	</select>
-	<!-- 1개 -->
- 	<select id="boardSelect" resultType="BoardNoticeVO" parameterType="BoardNoticeVO">
- 		SELECT * FROM notice
- 		WHERE num = #{num}
- 	</select>
-	<select id="boardCount" resultType="Integer"
-		parameterType="Pager">
-		SELECT COUNT(num) FROM notice
+<!-- sql -->
+	<sql id="bs">
 		<choose>
 			<when test="kind == 'kt'">
 				WHERE title LIKE '%'||#{search}||'%'
@@ -43,6 +17,26 @@
 				WHERE contents LIKE '%'||#{search}||'%'
 			</otherwise>
 		</choose>
+	</sql>
+	<!-- list -->
+	<select id="boardList" resultType="BoardNoticeVO"
+		parameterType="Pager">
+		SELECT * FROM
+		(SELECT N.*, ROWNUM R FROM
+		(SELECT * FROM notice
+		<include refid="bs"></include>
+		ORDER BY num DESC) N)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+	</select>
+	<!-- 1개 -->
+ 	<select id="boardSelect" resultType="BoardNoticeVO" parameterType="BoardNoticeVO">
+ 		SELECT * FROM notice
+ 		WHERE num = #{num}
+ 	</select>
+	<select id="boardCount" resultType="Integer"
+		parameterType="Pager">
+		SELECT COUNT(num) FROM notice
+		<include refid="bs"></include>
 	</select>
 	<insert id="boardWrite" parameterType="BoardVO">
 		INSERT INTO notice

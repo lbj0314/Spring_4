@@ -4,33 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="qnaMapper">
-  <!-- 전체 -->
- 	<select id="boardList" parameterType="Pager" resultType="BoardQnaVO">
- 		SELECT * FROM
- 		(SELECT Q.*, ROWNUM R FROM
-		(SELECT * FROM qna
-		<choose>
-			<when test="kind == 'kt'">
-				WHERE title LIKE '%'||#{search}||'%'
-			</when>
-			<when test="kind == 'kw'">
-				WHERE writer LIKE '%'||#{search}||'%'
-			</when>
-			<otherwise>
-				WHERE contents LIKE '%'||#{search}||'%'
-			</otherwise>
-		</choose>
-		ORDER BY ref DESC, step ASC) Q)
-		WHERE R BETWEEN #{startRow} AND #{lastRow}
- 	</select>
- 	<!-- 1개 -->
- 	<select id="boardSelect" resultType="BoardQnaVO" parameterType="BoardQnaVO">
- 		SELECT * FROM qna
- 		WHERE num = #{num}
- 	</select>
- 	<select id="boardCount" resultType="Integer" parameterType="Pager">
-
- 		SELECT COUNT(num) FROM qna
+  <!-- 중복된 sql문 작성 -->
+ 	<sql id="bs">
  		<choose>
 			<when test="kind == 'kt'">
 				WHERE title LIKE '%'||#{search}||'%'
@@ -42,6 +17,35 @@
 				WHERE contents LIKE '%'||#{search}||'%'
 			</otherwise>
 		</choose>
+ 	</sql>
+ 	<sql id="ref">
+ 		(SELECT ref FROM qna WHERE num = #{num})
+ 	</sql>
+ 	<sql id="step">
+ 		(SELECT step FROM qna WHERE num = #{num})
+ 	</sql>
+ 	<sql id="depth">
+ 		(SELECT depth FROM qna WHERE num = #{num})
+ 	</sql>
+ 	
+  <!-- 전체 -->
+ 	<select id="boardList" parameterType="Pager" resultType="BoardQnaVO">
+ 		SELECT * FROM
+ 		(SELECT Q.*, ROWNUM R FROM
+		(SELECT * FROM qna
+		<include refid="bs" />
+		ORDER BY ref DESC, step ASC) Q)
+		WHERE R BETWEEN #{startRow} AND #{lastRow}
+ 	</select>
+ 	<!-- 1개 -->
+ 	<select id="boardSelect" resultType="BoardQnaVO" parameterType="BoardQnaVO">
+ 		SELECT * FROM qna
+ 		WHERE num = #{num}
+ 	</select>
+ 	<select id="boardCount" resultType="Integer" parameterType="Pager">
+
+ 		SELECT COUNT(num) FROM qna
+ 		<include refid="bs" />
 
  	</select>
  	<insert id="boardWrite" parameterType="BoardVO">
@@ -63,11 +67,17 @@
  		
  	</update>
  	<!-- reply -->
- 	<insert id="boardReply" parameterType="BoardQnaVO">
-		INSERT INTO qna VALUES(board_seq.nextval, #{title}, #{writer}, #{contents}, SYSDATE, 0, #{ref}, #{step}, #{depth})
+ 	<insert id="boardReply" parameterType="BoardVO">
+		INSERT INTO qna VALUES(board_seq.nextval, #{title}, #{writer}, #{contents}, SYSDATE, 0,
+		 <include refid="ref"/>, 
+		 <include refid="step"/>+1,
+		 <include refid="depth"/>+1
+		 )
 	</insert>
 
-	<update id="boardReplyUpdate" parameterType="BoardQnaVO">
-		UPDATE qna SET step = step+1 WHERE ref = #{ref} AND step > #{step}
+	<update id="boardReplyUpdate" parameterType="BoardVO">
+		UPDATE qna SET step = step+1 
+		WHERE ref = <include refid="ref"/> 
+		AND step > <include refid="step"/>
 	</update>
  </mapper>
