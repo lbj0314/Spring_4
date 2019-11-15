@@ -21,11 +21,11 @@
 			
 			<ul class="nav navbar-nav navbar-right">
 			
-				<li><a href="${pageContext.request.contextPath }/member/memberMypage.jsp"><span class="glyphicon glyphicon-user"></span>MyPage</a></li>
-				<li><a href="${pageContext.request.contextPath }/member/memberLogout.jsp"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+				<li><a href="${pageContext.request.contextPath }/member/memberMypage"><span class="glyphicon glyphicon-user"></span>MyPage</a></li>
+				<li><a href="${pageContext.request.contextPath }/member/memberLogout"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 			
-				<li><a href="${pageContext.request.contextPath }/member/memberJoinForm.jsp"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
-				<li><a href="${pageContext.request.contextPath }/member/memberLoginForm.jsp"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+				<li><a href="${pageContext.request.contextPath }/member/memberJoin"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+				<li><a href="${pageContext.request.contextPath }/member/memberLogin"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
 			
 			</ul>
 		</div>

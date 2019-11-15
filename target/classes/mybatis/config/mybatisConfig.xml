@@ -9,6 +9,8 @@
   		<typeAlias type="com.iu.s4.model.BoardQnaVO" alias="BoardQnaVO"/>
   		<typeAlias type="com.iu.s4.util.Pager" alias="Pager"/>
   		
+  		<typeAlias type="com.iu.s4.model.MemberVO" alias="MemberVO"/>
+  		
   		<typeAlias type="java.lang.String" alias="String"/>
   		<typeAlias type="java.lang.Integer" alias="Integer"/>
   	</typeAliases>
