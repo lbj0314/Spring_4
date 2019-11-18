@@ -42,21 +42,18 @@ public class MemberController {
 		return mv;
 	}
 	//id Check
-	@GetMapping(value = "memberCheckId")
+	@PostMapping(value = "memberCheckId")
 	public ModelAndView memberCheckId(MemberVO memberVO) throws Exception {
 		memberVO = memberServiceImpl.memberCheckId(memberVO);
 		ModelAndView mv = new ModelAndView();
-		String msg = "중복된 아이디입니다.";
+		String msg = "unpass";
 
 		if (memberVO == null) {
 			// 아이디 사용가능
-			msg = "사용가능한 아이디입니다.";
-			mv.setViewName("redirect:../");
+			msg = "pass";
 		}
-
-		mv.addObject("vo", memberVO);
 		mv.addObject("msg", msg);
-		mv.setViewName("common/common_result");
+		mv.setViewName("./member/memberCheckId");
 
 		return mv;
 	}
