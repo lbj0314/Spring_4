@@ -19,6 +19,16 @@
 		</choose>
 	</sql>
 	<!-- list -->
+	<select id="boardResult" resultType="BoardNoticeVO"
+		parameterType="Pager">
+		SELECT * FROM
+		(SELECT N.*, ROWNUM R FROM
+		(SELECT * FROM notice
+		<include refid="bs"></include>
+		ORDER BY num DESC) N)
+		WHERE R BETWEEN 1 AND 5
+	</select>
+	<!-- list -->
 	<select id="boardList" resultType="BoardNoticeVO"
 		parameterType="Pager">
 		SELECT * FROM

@@ -5,6 +5,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +36,18 @@ public class NoticeController {
 		
 		return mv;
 	}
-
+	
+	//list 5개 뿌리기
+	@GetMapping(value = "noticeResult")
+	public ModelAndView noticeResult(Pager pager) throws Exception{
+		pager.setPerPage(5);
+		List<BoardVO> list = boardNoticeService.boardList(pager);
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("list", list);
+		mv.setViewName("board/boardResult");
+		
+		return mv;
+	}
 	//select One
 	@RequestMapping(value = "noticeSelect", method = RequestMethod.GET)
 	public ModelAndView boardSelect(BoardVO boardVO) throws Exception{

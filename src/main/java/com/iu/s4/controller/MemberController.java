@@ -194,6 +194,10 @@ public class MemberController {
 
 	//memberPage
 	@GetMapping("memberMypage")
-	public void memberMypage() throws Exception {
+	public ModelAndView memberMypage(MemberVO memberVO) throws Exception {
+		ModelAndView mv = new ModelAndView();	
+		
+
+		return mv;
 	}
 }

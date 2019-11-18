@@ -14,7 +14,7 @@
 <div class="container" style="padding-bottom: 30px;">
 		<h2>My page</h2>
 
-		<form action="#">
+		<form action="./memberMypage" method="post">
 		
 			<div class="form-group">
 				<label for="id">Id:</label> 

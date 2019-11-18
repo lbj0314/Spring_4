@@ -1,30 +1,51 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-	<nav class="navbar navbar-inverse">
-		<div class="container-fluid">
-			<div class="navbar-header"><a class="navbar-brand" href="${pageContext.request.contextPath }/">WebSite</a></div>
+<nav class="navbar navbar-inverse">
+
+	<div class="container-fluid">
+	
+		<div class="navbar-header">
+			<a class="navbar-brand" href="${pageContext.request.contextPath}/">SPRING4</a>
+		</div>
+
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="${pageContext.request.contextPath}/">Home</a></li>
 			
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="${pageContext.request.contextPath }/">Home</a></li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
-					<ul class="dropdown-menu">
-						<li><a href="${pageContext.request.contextPath }/notice/noticeList">notice</a></li>
-						<li><a href="#">Page 1-2</a></li>
-						<li><a href="#">Page 1-3</a></li>
-					</ul></li>
-				<li><a href="${pageContext.request.contextPath }/notice/noticeList">notice</a></li>
-				<li><a href="${pageContext.request.contextPath }/qna/qnaList">QnA</a></li>
-			</ul>
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">NOTICE<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="${pageContext.request.contextPath}/notice/noticeList">List</a></li>
+					<li><a href="${pageContext.request.contextPath}/notice/noticeWrite">Write</a></li>
+				</ul>
+			</li>
 			
-			<ul class="nav navbar-nav navbar-right">
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">QNA<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="${pageContext.request.contextPath}/qna/qnaList">List</a></li>
+					<li><a href="${pageContext.request.contextPath}/qna/qnaWrite">Write</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown" href="#">MEMBER<span class="caret"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="${pageContext.request.contextPath}/member/memberSearchId">Search ID</a></li>
+					<li><a href="${pageContext.request.contextPath}/member/memberSearchPw">Search PW</a></li>
+				</ul>
+			</li>
+		
+		
+		</ul>
+
+		<ul class="nav navbar-nav navbar-right">
 
 			<c:choose>
 				<%-- <c:when test="${not empty sessionScope.member}"> --%>
 				<c:when test="${not empty member}">
-					<li><a href="${pageContext.request.contextPath}/member/memberMyPage">
+					<li><a href="${pageContext.request.contextPath}/member/memberMypage">
 						<span class="glyphicon glyphicon-user"></span>My page
 					</a></li>
 
@@ -45,7 +66,6 @@
 			</c:choose>
 
 		</ul>
-		</div>
-	</nav>
-	
+	</div>
 
+</nav>

@@ -2,11 +2,6 @@ package com.iu.s4.util;
 
 public class Pager {
 	
-	public Pager() {
-		perPage = 10;
-		// TODO Auto-generated constructor stub
-	}
-	
 	private Integer curPage; //현재 페이지 번호
 	private Integer perPage; //불러올 때 글의 개수
 	//DB
