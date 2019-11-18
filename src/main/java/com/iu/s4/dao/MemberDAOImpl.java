@@ -11,35 +11,46 @@ import com.iu.s4.model.MemberVO;
 public class MemberDAOImpl implements MemberDAO {
 	
 	@Inject
-	private SqlSession SqlSession;
+	private SqlSession sqlSession;
 	private static final String NAMESPACE = "memberMapper.";
 	@Override
 	public int memberJoin(MemberVO memberVO) throws Exception {
-		return SqlSession.insert(NAMESPACE + "memberJoin", memberVO);
+		return sqlSession.insert(NAMESPACE + "memberJoin", memberVO);
 	}
 
 	@Override
 	public MemberVO memberLogin(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne(NAMESPACE+"memberLogin", memberVO) ;
 	}
 
 	@Override
 	public int memberUpdate(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.update(NAMESPACE+"memberUpdate", memberVO);
 	}
 
 	@Override
 	public int memberDelete(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.delete(NAMESPACE+"memberDelete", memberVO);
 	}
 
 	@Override
 	public int memberPointUpdate(MemberVO memberVO) throws Exception {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	@Override
+	public MemberVO memberCheckId(MemberVO memberVO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"memberCheckId", memberVO);
+	}
+
+	@Override
+	public MemberVO memberSearchId(MemberVO memberVO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"memberSearchId", memberVO);
+	}
+
+	@Override
+	public MemberVO memberSearchPw(MemberVO memberVO) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+"memberSearchPw", memberVO);
+	}
+	
 }

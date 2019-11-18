@@ -17,7 +17,7 @@
 <div class="container">
     <div class="form-group">
       <label for="email">ID:</label>
-      <input type="email" class="form-control" id="id" placeholder="Enter id" name="id">
+      <input type="text" class="form-control" id="id" placeholder="Enter id" name="id">
     </div>
     <div class="form-group">
       <label for="pwd">PASSWORD:</label>

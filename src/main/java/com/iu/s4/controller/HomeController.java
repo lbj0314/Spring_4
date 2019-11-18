@@ -33,6 +33,12 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
+		String year = "";
+		String birth = "";
+	
+		
+		
+		
 		return "index";
 	}
 	

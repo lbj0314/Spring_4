@@ -21,7 +21,7 @@
 				<input type="text" class="form-control" 
 				id="id" placeholder="Enter id" name="id">
 				<br>
-				<input type="button" value="Check" class="btn btn-success">
+				<input type="button" value="Check" class="btn btn-success" id="checkId">
 			</div>
 			<div class="form-group">
 				<label for="pw">PASSWORD :</label> 
@@ -54,5 +54,12 @@
 			<button type="submit" class="btn btn-default">Submit</button>
 		</div>
 	</form>
+	<script type="text/javascript">
+	$("#checkId").click(function() { //callback함수
+		var id = $("#id").val();
+		window.open("./memberCheckId?id="+id, "", "width=600, height=300, top=200, left=600");
+	});
+	
+</script>
 </body>
 </html>
