@@ -13,7 +13,7 @@
 <c:import url="../layout/nav.jsp" />
 	<h1>${board} Write</h1>
 	
-	<form action="./${board}Write" method="post">
+	<form action="./${board}Write" method="post" id="frm">
 		
 				<div class="form-group">
 					<label for="title">Title : </label> 
@@ -29,9 +29,15 @@
 					<label for="contents">Contents : </label>
 					<textarea rows="20" cols="" name="contents" class="form-control" id="contents" placeholder="Enter contents"></textarea>
 				</div>
+				<div class="form-group">
+					<label for="file">File : </label>
+					<input type="file" name="file" class="form-control" id="file">
+				</div>
 
 				<button type="submit" class="btn btn-default">Write</button>
 	</form>
-	
+<script type="text/javascript">
+
+</script>
 </body>
 </html>
