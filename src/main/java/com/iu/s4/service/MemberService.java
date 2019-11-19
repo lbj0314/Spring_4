@@ -1,11 +1,13 @@
 package com.iu.s4.service;
 
+import javax.servlet.http.HttpSession;
+
 import com.iu.s4.model.MemberVO;
 
 public interface MemberService {
 
 	//join
-	public int memberJoin(MemberVO memberVO) throws Exception;
+	public int memberJoin(MemberVO memberVO, HttpSession session) throws Exception;
 	//login
 	public MemberVO memberLogin(MemberVO memberVO) throws Exception;
 	//update
@@ -20,4 +22,6 @@ public interface MemberService {
 	public MemberVO memberSearchId(MemberVO memberVO) throws Exception;
 	//pw search
 	public MemberVO memberSearchPw(MemberVO memberVO) throws Exception;
+	//이메일 체크
+	public MemberVO memberCheckEmail(MemberVO memberVO) throws Exception;
 }

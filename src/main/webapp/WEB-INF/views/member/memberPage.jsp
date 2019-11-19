@@ -13,6 +13,11 @@
 		<h1>ID : ${member.id }</h1>
 		<h1>email : ${member.email }</h1>
 		<h1>birth : ${member.birth }</h1>
+		<div>
+			<img alt="" src="../resources/upload/member/${member.filename }">
+		</div>
+		
+		<a href="memberDelete">회원 탈퇴</a>
 	</div>
 </body>
 </html>
