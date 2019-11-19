@@ -31,6 +31,10 @@
 			<textarea rows="20" cols="" name="contents" class="form-control"
 				id="contents" placeholder="Enter contents">${vo.contents}</textarea>
 		</div>
+		<div class="form-group">
+					<label for="file">File : </label>
+					<input type="file" name="file" class="form-control" id="file">
+				</div>
 		<button type="submit" class="btn btn-default">Update</button>
 	</form>
 

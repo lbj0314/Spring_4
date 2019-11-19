@@ -47,14 +47,14 @@
 	<insert id="boardWrite" parameterType="BoardVO">
 		INSERT INTO notice
 		VALUES(board_seq.nextval, #{title}, #{writer}, #{contents}, SYSDATE,
-		0)
+		0, #{filename}, #{originalname})
 	</insert>
 	<delete id="boardDelete" parameterType="Integer">
  		DELETE notice
  		WHERE num = #{num}
  	</delete>
  		<update id="boardUpdate" parameterType="BoardVO">
- 		UPDATE notice SET title = #{title}, contents = #{contents}
+ 		UPDATE notice SET title = #{title}, contents = #{contents}, filename = #{filename}, originalname = #{originalname}
  		WHERE num = #{num}
  	</update>
 </mapper>
