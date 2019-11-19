@@ -10,6 +10,9 @@ public class BoardVO {
 	private String writer;
 	private Date reg_date;
 	private Integer hit;
+	private String filename;
+	private String originalname;
+	
 	public int getNum() {
 		return num;
 	}
@@ -45,6 +48,18 @@ public class BoardVO {
 	}
 	public void setHit(Integer hit) {
 		this.hit = hit;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public String getOriginalname() {
+		return originalname;
+	}
+	public void setOriginalname(String originalname) {
+		this.originalname = originalname;
 	}
 	
 	
