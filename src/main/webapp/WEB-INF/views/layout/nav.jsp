@@ -24,7 +24,7 @@
 			<c:choose>
 				<%-- <c:when test="${not empty sessionScope.member}"> --%>
 				<c:when test="${not empty member}">
-					<li><a href="${pageContext.request.contextPath}/member/memberMyPage">
+					<li><a href="${pageContext.request.contextPath}/member/memberPage">
 						<span class="glyphicon glyphicon-user"></span>My page
 					</a></li>
 

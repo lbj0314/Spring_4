@@ -20,4 +20,6 @@ public interface MemberDAO {
 	public MemberVO memberSearchId(MemberVO memberVO) throws Exception;
 	//비밀번호 찾기
 	public MemberVO memberSearchPw(MemberVO memberVO) throws Exception;
+	//email 체크
+	public MemberVO memberCheckEmail(MemberVO memberVO) throws Exception;
 }

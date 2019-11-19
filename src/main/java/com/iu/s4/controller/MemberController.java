@@ -1,6 +1,7 @@
 package com.iu.s4.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -28,35 +29,36 @@ public class MemberController {
 		return mv;
 	}
 	@PostMapping(value = "memberJoin")
-	public ModelAndView memberJoin(MemberVO memberVO) throws Exception{
-		int result = memberServiceImpl.memberJoin(memberVO);
+	public ModelAndView memberJoin(MemberVO memberVO, HttpSession session, HttpServletRequest request) throws Exception{
+//		System.out.println(session.getServletContext().getRealPath("resources/upload"));
+//		System.out.println(request.getSession().getServletContext().getRealPath("resources/upload"));
 		ModelAndView mv = new ModelAndView();
+		int result = memberServiceImpl.memberJoin(memberVO, session);
+		
 		String msg = "memberJoin Fail";
 		if (result > 0) {
-			mv.setViewName("redirect:../");
-		} else {
+			msg = "memberJoin Success";
+		} 
 			mv.addObject("msg", msg);
 			mv.addObject("path", "../");
 			mv.setViewName("common/common_result");
-		}
+		
 		return mv;
 	}
 	//id Check
-	@GetMapping(value = "memberCheckId")
+	@PostMapping(value = "memberCheckId")
 	public ModelAndView memberCheckId(MemberVO memberVO) throws Exception {
+
 		memberVO = memberServiceImpl.memberCheckId(memberVO);
 		ModelAndView mv = new ModelAndView();
-		String msg = "중복된 아이디입니다.";
+		String msg = "unpass";
 
 		if (memberVO == null) {
 			// 아이디 사용가능
-			msg = "사용가능한 아이디입니다.";
-			mv.setViewName("redirect:../");
+			msg = "pass";
 		}
-
-		mv.addObject("vo", memberVO);
 		mv.addObject("msg", msg);
-		mv.setViewName("common/common_result");
+		mv.setViewName("./member/memberCheckId");
 
 		return mv;
 	}
@@ -118,11 +120,11 @@ public class MemberController {
 	@RequestMapping(value = "memberDelete")
 	public ModelAndView memberDelete(MemberVO memberVO, HttpSession session) throws Exception {
 		int result = memberServiceImpl.memberDelete(memberVO);
-		String msg = "탈퇴 실패";
+		String msg = "Fail";
 
 		ModelAndView mv = new ModelAndView();
 		if (result > 0) {
-			msg = "탈퇴 성공";
+			msg = "Success";
 		}
 
 		mv.addObject("msg", msg);
@@ -193,7 +195,25 @@ public class MemberController {
 	}
 
 	//memberPage
-	@GetMapping("memberMypage")
-	public void memberMypage() throws Exception {
+	@GetMapping(value = "memberPage")
+	public void memberPage()throws Exception{
+		
 	}
+	
+	//email Check
+		@PostMapping(value = "memberCheckEmail")
+		public ModelAndView memberCheckEmail(MemberVO memberVO) throws Exception {
+			memberVO = memberServiceImpl.memberCheckEmail(memberVO);
+			ModelAndView mv = new ModelAndView();
+			String msg = "unpass";
+
+			if (memberVO == null) {
+				// 이메일 사용가능
+				msg = "pass";
+			}
+			mv.addObject("msg", msg);
+			mv.setViewName("./member/memberCheckEmail");
+
+			return mv;
+		}
 }

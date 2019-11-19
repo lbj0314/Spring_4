@@ -21,13 +21,13 @@
 			<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactoryBean" />
 		</bean>
 		<!-- Multipart 합치는 객체 -->
-			<!-- id 속성의 값은 무조건 multipartResolver 로 선택 -->
-			<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-				<!-- Encoding 설정 -->
-				<property name="defaultEncoding" value="UTF-8"/>
-				<!-- 전체 file의 최대 size 제한 -->
-				<property name="maxUploadSize" value="104857600"/> <!-- 단위는 Byte 현재 100메가 -->
-				<!-- file당 최대 size 제한 -->
-				<property name="maxUploadSizePerFile" value="10485760"/>
-			</bean>
+		<!-- id 속성의 값은 무조건 multipartResolver 로 선택 -->
+		<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+			<!-- Encoding 설정 -->
+			<property name="defaultEncoding" value="UTF-8"/>
+			<!-- 전체 file의 최대 size 제한 -->
+			<property name="maxUploadSize" value="104857600"/> <!-- 단위는 Byte 현재 100메가 -->
+			<!-- file당 최대 size 제한 -->
+			<property name="maxUploadSizePerFile" value="10485760"/>
+		</bean>
 </beans>

@@ -7,9 +7,9 @@
 	<!-- insert -->
 	<insert id="memberJoin" parameterType="MemberVO">
 		INSERT INTO member (id,
-		pw, name, email, birth, gender)
+		pw, name, email, birth, gender, filename, originalname)
 		VALUES(#{id}, #{pw}, #{name}, #{email},
-		#{birth}, #{gender})
+		#{birth}, #{gender}, #{filename}, #{originalname})
 	</insert>
 	<select id="memberCheckId" resultType="MemberVO"
 		parameterType="MemberVO">
@@ -18,7 +18,8 @@
 	</select>
 	<select id="memberLogin" parameterType="MemberVO"
 		resultType="MemberVO">
-		select id, name, email, to_char(birth, 'yyyy-mm-dd') as birth, gender, point from member
+		select id, name, email, to_char(birth, 'yyyy-mm-dd') as birth, gender, point, filename, originalname
+		from member
 		where id = #{id} and pw = #{pw}
 	</select>
 	<delete id="memberDelete" parameterType="MemberVO">
@@ -44,4 +45,11 @@
  		select * from member 
  		where id = #{id} and phone = #{phone} and email = #{email}	
  	</select>
+ 	
+ 	<select id="memberCheckEmail" resultType="MemberVO"
+		parameterType="MemberVO">
+		select email from member 
+		where email = #{email}
+	</select>
+	
 </mapper>
