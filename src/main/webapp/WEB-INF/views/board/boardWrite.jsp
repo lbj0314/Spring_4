@@ -29,14 +29,36 @@
 					<label for="contents">Contents : </label>
 					<textarea rows="20" cols="" name="contents" class="form-control" id="contents" placeholder="Enter contents"></textarea>
 				</div>
+				<div id="files">
 				<div class="form-group">
 					<label for="file">File : </label>
 					<input type="file" name="file" class="form-control" id="file">
+					<input type="button" class="btn btn-danger remove" value="Remove File">
 				</div>
-
+				</div>
+				
+				<input type="button" class="btn btn-success" value="Add File" id="add">
 				<button type="submit" class="btn btn-default">Write</button>
 	</form>
 <script type="text/javascript">
+	var files = $("#files").html();
+	var num = 1;
+	$("#files").empty();
+	$("#add").click(".remove", function() {
+		if (num > 5) {
+			alert("파일의 갯수는 5개까지 올릴 수 있습니다.");
+			return false;
+		}
+		$("#files").append(files);
+		
+	
+		num++;
+		$(".remove").click(function() {
+			alert("remove");
+			return false;
+		});
+	});
+		
 
 </script>
 </body>
