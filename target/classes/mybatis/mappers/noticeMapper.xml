@@ -39,16 +39,20 @@
 		<include refid="bs"></include>
 	</select>
 	<insert id="boardWrite" parameterType="BoardVO">
+		<selectKey order="BEFORE" resultType="Integer" keyProperty="num">
+			SELECT board_seq.nextval FROM dual
+		</selectKey>
 		INSERT INTO notice
-		VALUES(board_seq.nextval, #{title}, #{writer}, #{contents}, SYSDATE,
-		0)
+		VALUES(
+		#{num}, #{title}, #{writer}, #{contents}, SYSDATE, 0
+		)
 	</insert>
 	<delete id="boardDelete" parameterType="Integer">
  		DELETE notice
  		WHERE num = #{num}
  	</delete>
  		<update id="boardUpdate" parameterType="BoardVO">
- 		UPDATE notice SET title = #{title}, contents = #{contents}, filename = #{filename}, originalname = #{originalname}
+ 		UPDATE notice SET title = #{title}, contents = #{contents}
  		WHERE num = #{num}
  	</update>
  	

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.iu.s4.dao.BoardNoticeDAO;
 import com.iu.s4.dao.NoticeFilesDAO;
+import com.iu.s4.model.BoardNoticeVO;
 import com.iu.s4.model.BoardVO;
 import com.iu.s4.model.NoticeFilesVO;
 import com.iu.s4.util.FileSaver;
@@ -34,8 +35,16 @@ public class BoardNoticeService implements BoardService {
 
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
-		boardVO.getNum();
-		return boardNoticeDAO.boardSelect(boardVO);
+//		boardVO.getNum();
+		boardVO = boardNoticeDAO.boardSelect(boardVO);
+		
+		BoardNoticeVO boardNoticeVO = (BoardNoticeVO)boardVO;
+		
+		List<NoticeFilesVO> ar = noticeFilesDAO.fileList(boardVO.getNum());
+		
+		boardNoticeVO.setFiles(ar);
+		
+		return boardNoticeVO;
 	}
 
 	@Override
@@ -43,13 +52,15 @@ public class BoardNoticeService implements BoardService {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
 		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
 		int result = boardNoticeDAO.boardWrite(boardVO);
-		System.out.println(boardVO.getNum());
-//		for(MultipartFile multipartFile:file) {
-//			String fileName = fileSaver.save(realPath, multipartFile);
-//			noticeFilesVO.setFname(fileName);
-//			noticeFilesVO.setOname(multipartFile.getOriginalFilename());
-//		}
-//		noticeFilesDAO.fileWrite(noticeFilesVO);
+//		System.out.println(file);
+//		System.out.println(boardVO.getNum());
+		for(MultipartFile multipartFile:file) {
+			String fileName = fileSaver.save(realPath, multipartFile);
+			noticeFilesVO.setFname(fileName);
+			noticeFilesVO.setNum(boardVO.getNum());
+			noticeFilesVO.setOname(multipartFile.getOriginalFilename());
+			result = noticeFilesDAO.fileWrite(noticeFilesVO);
+		}
 		return result;
 	}
 

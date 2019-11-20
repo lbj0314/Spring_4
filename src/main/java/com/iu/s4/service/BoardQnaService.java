@@ -9,8 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.iu.s4.dao.BoardQnaDAO;
+import com.iu.s4.dao.QnaFilesDAO;
 import com.iu.s4.model.BoardQnaVO;
 import com.iu.s4.model.BoardVO;
+import com.iu.s4.model.QnaFilesVO;
+import com.iu.s4.util.FileSaver;
 import com.iu.s4.util.Pager;
 
 @Service
@@ -18,7 +21,10 @@ public class BoardQnaService implements BoardService {
 	
 	@Inject
 	private BoardQnaDAO boardQnaDAO;
-	
+	@Inject
+	private FileSaver fileSaver;
+	@Inject
+	private QnaFilesDAO qnaFilesDAO;
 	
 	
 	@Override
@@ -30,13 +36,34 @@ public class BoardQnaService implements BoardService {
 
 	@Override
 	public BoardVO boardSelect(BoardVO boardVO) throws Exception {
-		boardVO.getNum();
-		return boardQnaDAO.boardSelect(boardVO);
+//		boardVO.getNum();
+		boardVO = boardQnaDAO.boardSelect(boardVO);
+		
+		BoardQnaVO boardQnaVO = (BoardQnaVO) boardVO;
+		
+		List<QnaFilesVO> ar = qnaFilesDAO.fileList(boardVO.getNum());
+		
+		boardQnaVO.setFiles(ar);
+		
+		return boardQnaVO;
 	}
 
 	@Override
 	public int boardWrite(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception {
-		return boardQnaDAO.boardWrite(boardVO);
+		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
+		QnaFilesVO qnaFilesVO = new QnaFilesVO();
+		int result = boardQnaDAO.boardWrite(boardVO);
+		
+		System.out.println(file);
+		
+		for (MultipartFile multipartFile:file) {
+			String fileName = fileSaver.save(realPath, multipartFile);
+			qnaFilesVO.setFname(fileName);
+			qnaFilesVO.setNum(boardVO.getNum());
+			qnaFilesVO.setOname(multipartFile.getOriginalFilename());
+			result = qnaFilesDAO.fileWrite(qnaFilesVO);
+		}
+		return result;
 	}
 
 	@Override
@@ -50,7 +77,7 @@ public class BoardQnaService implements BoardService {
 		return boardQnaDAO.boardDelete(boardVO);
 	}
 
-	public int boardReply(BoardVO boardVO) throws Exception {
+	public int boardReply(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception {
 		BoardQnaVO parent = (BoardQnaVO)boardQnaDAO.boardSelect(boardVO);
 		int result = boardQnaDAO.boardReplyUpdate(parent);
 

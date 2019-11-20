@@ -11,6 +11,7 @@
   		
   		<typeAlias type="com.iu.s4.model.MemberVO" alias="MemberVO"/>
   		<typeAlias type="com.iu.s4.model.NoticeFilesVO" alias="NoticeFilesVO"/>
+  		<typeAlias type="com.iu.s4.model.QnaFilesVO" alias="QnaFilesVO"/>
   		
   		<typeAlias type="java.lang.String" alias="String"/>
   		<typeAlias type="java.lang.Integer" alias="Integer"/>

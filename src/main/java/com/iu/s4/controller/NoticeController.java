@@ -59,7 +59,7 @@ public class NoticeController {
 	@RequestMapping(value="noticeWrite", method = RequestMethod.POST)
 	public ModelAndView boardWrite(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		
+//		System.out.println(file);
 		int result = boardNoticeService.boardWrite(boardVO, file, session);
 		String msg = "Write Fail";
 		

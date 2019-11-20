@@ -13,7 +13,7 @@
 <c:import url="../layout/nav.jsp" />
 	<h1>${board} Write</h1>
 	
-	<form action="./${board}Write" method="post" id="frm">
+	<form action="./${board}Write" method="post" id="frm" enctype="multipart/form-data">
 		
 				<div class="form-group">
 					<label for="title">Title : </label> 

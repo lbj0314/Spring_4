@@ -49,9 +49,11 @@
 
  	</select>
  	<insert id="boardWrite" parameterType="BoardVO">
- 		
+ 		<selectKey order="BEFORE" resultType="Integer" keyProperty="num">
+			SELECT board_seq.nextval FROM dual
+		</selectKey>
  		INSERT INTO qna
- 		VALUES (board_seq.nextval, #{title}, #{writer}, #{contents}, SYSDATE, 0, board_seq.currval, 0, 0)
+ 		VALUES (#{num}, #{title}, #{writer}, #{contents}, SYSDATE, 0, board_seq.currval, 0, 0)
  		
  	</insert>
  	<delete id="boardDelete" parameterType="Integer">

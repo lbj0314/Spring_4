@@ -35,6 +35,11 @@
 	<div>
 		<textarea rows="30" cols="154" readonly="readonly">${ vo.contents } </textarea>
 	</div>
+	<div>
+		<c:forEach items="${ vo.files }" var="file">
+			<a href="../resources/upload/${board}/${file.fname}">${file.oname}</a>
+		</c:forEach>
+	</div>
 		<div>
 
 			<a href="./${board}Update?num=${vo.num }" class="btn btn-success">Update</a>

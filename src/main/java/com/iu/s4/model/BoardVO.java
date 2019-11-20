@@ -2,8 +2,6 @@ package com.iu.s4.model;
 
 import java.sql.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class BoardVO {
 	
 	private int num;

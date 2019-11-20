@@ -9,4 +9,8 @@
 			file_seq.nextval, #{num}, #{fname}, #{oname}
 		)
 	</insert>
+	<select id="fileList" parameterType="Integer" resultType="NoticeFilesVO">
+		SELECT * FROM noticefiles
+		WHERE num = #{num}
+	</select>
   </mapper>
