@@ -1,5 +1,6 @@
 package com.iu.s4.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.s4.model.BoardNoticeVO;
@@ -55,11 +57,10 @@ public class NoticeController {
 		
 	}
 	@RequestMapping(value="noticeWrite", method = RequestMethod.POST)
-	public ModelAndView boardWrite(BoardVO boardVO, HttpSession session) throws Exception{
-		
-		
-		int result = boardNoticeService.boardWrite(boardVO, session);
+	public ModelAndView boardWrite(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
+		
+		int result = boardNoticeService.boardWrite(boardVO, file, session);
 		String msg = "Write Fail";
 		
 		if (result > 0) {
