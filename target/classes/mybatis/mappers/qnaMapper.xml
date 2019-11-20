@@ -37,10 +37,31 @@
 		ORDER BY ref DESC, step ASC) Q)
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
  	</select>
+ 	
+ 	<resultMap type="BoardQnaVO" id="boardFile">
+ 		<id property="num" column="num"/>
+ 		<result property="title" column="title"/>
+ 		<result property="writer" column="writer"/>
+ 		<result property="title" column="title"/>
+ 		<result property="contents" column="contents"/>
+ 		<result property="reg_date" column="reg_date" />
+ 		<result property="hit" column="hit" />
+ 		<result property="ref" column="ref"/>
+ 		<result property="step" column="step" />
+ 		<result property="depth" column="depth"/>
+ 		<collection property="files" javaType="java.util.List" ofType="QnaFilesVO">
+ 			<id property="fnum" column="fnum"/>
+			<result property="fname" column="fname"/>
+			<result property="oname" column="oname"/>
+ 		</collection>
+ 	</resultMap>
+ 	
  	<!-- 1개 -->
- 	<select id="boardSelect" resultType="BoardQnaVO" parameterType="BoardQnaVO">
- 		SELECT * FROM qna
- 		WHERE num = #{num}
+ 	<select id="boardSelect" resultMap="boardFile" parameterType="BoardQnaVO">
+ 		SELECT q.*, f.fnum, f.fname, f.oname 
+ 		FROM qna q FULL OUTER JOIN qnafiles f
+		ON (q.num = f.num)
+		WHERE q.num = #{num}
  	</select>
  	<select id="boardCount" resultType="Integer" parameterType="Pager">
 
