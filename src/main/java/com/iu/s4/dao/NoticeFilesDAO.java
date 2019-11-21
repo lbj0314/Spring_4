@@ -25,4 +25,11 @@ public class NoticeFilesDAO {
 		return sqlSession.selectList(NAMESPACE + "fileList", num);
 	}
 	
+	public int fileDelete(NoticeFilesVO noticeFilesVO) throws Exception{
+		return sqlSession.delete(NAMESPACE + "fileDelete", noticeFilesVO);
+	}
+	
+	public NoticeFilesVO fileSelect(NoticeFilesVO noticeFilesVO) throws Exception{
+		return sqlSession.selectOne(NAMESPACE + "fileSelect", noticeFilesVO);
+	}
 }

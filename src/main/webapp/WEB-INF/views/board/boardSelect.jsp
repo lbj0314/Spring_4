@@ -8,6 +8,12 @@
 <meta charset="UTF-8">
 <title>${ board }</title>\
 <c:import url="../layout/bootStrap.jsp" />
+<style type="text/css">
+img{
+	width: 20%;
+	height: 20%;
+}
+</style>
 </head>
 <body>
 <c:import url="../layout/nav.jsp" />
@@ -37,7 +43,8 @@
 	</div>
 	<div>
 		<c:forEach items="${ vo.files }" var="file">
-			<a href="../resources/upload/${board}/${file.fname}">${file.oname}</a>
+			<img alt="${file.oname}" src="../resources/upload/${board}/${file.fname}">
+			<a href="./fileDown?fnum=${file.fnum}">${file.oname}</a>&nbsp;&nbsp;&nbsp;&nbsp;
 		</c:forEach>
 	</div>
 		<div>

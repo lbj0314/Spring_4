@@ -67,7 +67,7 @@ public class BoardQnaService implements BoardService {
 	}
 
 	@Override
-	public int boardUpdate(BoardVO boardVO) throws Exception {
+	public int boardUpdate(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception {
 		return boardQnaDAO.boardUpdate(boardVO);
 	}
 
@@ -82,6 +82,16 @@ public class BoardQnaService implements BoardService {
 		int result = boardQnaDAO.boardReplyUpdate(parent);
 
 		return boardQnaDAO.boardReply(boardVO);
+	}
+
+	public int fileDelete(QnaFilesVO qnaFilesVO) {
+		// TODO Auto-generated method stub
+		return qnaFilesDAO.fileDelete(qnaFilesVO);
+	}
+
+	public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) {
+		// TODO Auto-generated method stub
+		return qnaFilesDAO.fileSelect(qnaFilesVO);
 	}
 
 	

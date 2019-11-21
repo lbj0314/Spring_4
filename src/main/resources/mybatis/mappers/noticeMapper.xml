@@ -29,7 +29,7 @@
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
 	</select>
 	
-	<resultMap type="BoardNoticeVO" id="boardFile">
+	<resultMap type="BoardNoticeVO" id="boardFiles">
 		<id property="num" column="num"/>
 		<result property="title" column="title"/>
 		<result property="writer" column="writer"/>
@@ -44,7 +44,7 @@
 	</resultMap>
 	
 	<!-- 1개 -->
- 	<select id="boardSelect" resultMap="boardFile" parameterType="BoardNoticeVO">
+ 	<select id="boardSelect" resultMap="boardFiles" parameterType="BoardNoticeVO">
  		SELECT n.*, f.fnum, f.fname, f.oname 
  		FROM notice n FULL OUTER JOIN noticefiles f
 		ON (n.num = f.num)

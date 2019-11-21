@@ -38,7 +38,7 @@
 		WHERE R BETWEEN #{startRow} AND #{lastRow}
  	</select>
  	
- 	<resultMap type="BoardQnaVO" id="boardFile">
+ 	<resultMap type="BoardQnaVO" id="boardFiles">
  		<id property="num" column="num"/>
  		<result property="title" column="title"/>
  		<result property="writer" column="writer"/>
@@ -49,15 +49,17 @@
  		<result property="ref" column="ref"/>
  		<result property="step" column="step" />
  		<result property="depth" column="depth"/>
- 		<collection property="files" javaType="java.util.List" ofType="QnaFilesVO">
- 			<id property="fnum" column="fnum"/>
+ 		<collection property="files" javaType="java.util.List" 
+ 			ofType="QnaFilesVO" resultMap="fileResult" />
+ 		
+ 	</resultMap>
+ 	<resultMap type="QnaFilesVO" id="fileResult">
+ 		<id property="fnum" column="fnum"/>
 			<result property="fname" column="fname"/>
 			<result property="oname" column="oname"/>
- 		</collection>
  	</resultMap>
- 	
  	<!-- 1개 -->
- 	<select id="boardSelect" resultMap="boardFile" parameterType="BoardQnaVO">
+ 	<select id="boardSelect" resultMap="boardFiles" parameterType="BoardQnaVO">
  		SELECT q.*, f.fnum, f.fname, f.oname 
  		FROM qna q FULL OUTER JOIN qnafiles f
 		ON (q.num = f.num)

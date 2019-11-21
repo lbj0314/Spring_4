@@ -13,4 +13,13 @@
 		SELECT * FROM noticefiles
 		WHERE num = #{num}
 	</select>
+	<delete id="fileDelete" parameterType="NoticeFilesVO">
+		DELETE noticeFiles
+		WHERE fnum = #{fnum}
+		
+	</delete>
+	<select id="fileSelect" parameterType="NoticeFilesVO" resultType="NoticeFilesVO">
+		SELECT * FROM noticefiles
+		WHERE fnum = #{fnum}
+	</select>
   </mapper>

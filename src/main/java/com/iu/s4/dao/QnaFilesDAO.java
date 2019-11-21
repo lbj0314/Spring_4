@@ -24,4 +24,14 @@ public class QnaFilesDAO {
 		return sqlSession.selectList(NAMESPACE + "fileList", num);
 	}
 
+	public int fileDelete(QnaFilesVO qnaFilesVO) {
+		// TODO Auto-generated method stub
+		return sqlSession.delete(NAMESPACE + "fileDelete", qnaFilesVO);
+	}
+
+	public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(NAMESPACE + "fileSelect", qnaFilesVO);
+	}
+
 }
