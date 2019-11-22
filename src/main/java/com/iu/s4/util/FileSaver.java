@@ -72,4 +72,15 @@ public class FileSaver {
 		return fileName;
 	}
 
+	
+	//file Delete
+	public Boolean fileDelete(String realPath, String filename) throws Exception {
+		File file = new File(realPath, filename);
+		boolean check = false;
+		if (file.exists()) {
+			check = file.delete();
+		}
+		
+		return check;
+	}
 }

@@ -175,4 +175,17 @@ public class NoticeController {
 		return mv;
 	}
 	
+	@PostMapping(value = "summerFileDelete")
+	public ModelAndView summerDelete(String file, HttpSession session) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		boolean check = boardNoticeService.summerFileDelete(file, session);
+		String result = "Delete Fail";
+		if(check) {
+			result = "Delete Success";
+		}
+		mv.addObject("result", result);
+		mv.setViewName("common/common_ajaxResult");
+		return mv;
+	}
+	
 }
