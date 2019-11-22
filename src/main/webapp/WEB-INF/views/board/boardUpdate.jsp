@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title>${fn:toUpperCase(board)} UPDATE</title>
 <c:import url="../layout/bootStrap.jsp" />
+<c:import url="../layout/summernote.jsp"/>
 </head>
 <body>
 	<c:import url="../layout/nav.jsp" />
@@ -27,8 +28,8 @@
 		</div>
 		<div class="form-group">
 			<label for="contents">Contents : </label>
-			<textarea rows="20" cols="" name="contents" class="form-control"
-				id="contents" placeholder="Enter contents">${vo.contents}</textarea>
+			<textarea name="contents" class="form-control"
+				id="contents" placeholder="Enter contents"></textarea>
 		</div>
 		
 		<div id="files">
@@ -51,12 +52,6 @@
 		<input type="button" class="btn btn-success" value="Add File" id="add">
 		<button type="submit" class="btn btn-default">Update</button>
 	
-		<div>
-			${vo.contents }
-		</div>
-		<div>
-			<textarea rows="" cols="">${vo.contents }</textarea>
-		</div>
 	
 	</form>
 <script type="text/javascript">
@@ -92,6 +87,16 @@
 		$(this).parents(".form-group").remove();
 		num--;
 	});
+	
+	$("#contents").summernote({
+		height : 500,
+		minHeight : 500,
+		maxHeight : 500,
+		focus : true
+		
+	});
+	
+	$("#contents").summernote('code', '${vo.contents}');
 	
 </script>
 </body>

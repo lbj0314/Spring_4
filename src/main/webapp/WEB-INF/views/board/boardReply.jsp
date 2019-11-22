@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>${board} Reply</title>
 <c:import url="../layout/bootStrap.jsp" />
+<c:import url="../layout/summernote.jsp"/>
 </head>
 <body>
 <c:import url="../layout/nav.jsp" />
@@ -68,7 +69,14 @@
 		num++;
 	});
 		
-
+	$("#contents").summernote({
+		height : 500,
+		minHeight : 500,
+		maxHeight : 500,
+		focus : true
+	});
+	
+	
 </script>	
 </body>
 </html>

@@ -38,8 +38,8 @@ img{
 				</tr>
 			
 	</table>
-	<div>
-		<textarea rows="30" cols="154" readonly="readonly">${ vo.contents } </textarea>
+	<div class="form-group">
+		${ vo.contents } 
 	</div>
 	<div>
 		<c:forEach items="${ vo.files }" var="file">

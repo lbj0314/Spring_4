@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>${board} Write</title>
 <c:import url="../layout/bootStrap.jsp" />
+<c:import url="../layout/summernote.jsp"/>
 </head>
 <body>
 <c:import url="../layout/nav.jsp" />
@@ -27,7 +28,7 @@
 
 				<div class="form-group">
 					<label for="contents">Contents : </label>
-					<textarea rows="20" cols="" name="contents" class="form-control" id="contents" placeholder="Enter contents"></textarea>
+					<textarea name="contents" class="form-control" id="contents" placeholder="Enter contents"></textarea>
 				</div>
 				<div id="files">
 					<div class="form-group" title="parent">
@@ -39,8 +40,16 @@
 				
 				<input type="button" class="btn btn-success" value="Add File" id="add">
 				<button type="submit" class="btn btn-default">Write</button>
+				
+
 	</form>
 <script type="text/javascript">
+	$("#contents").summernote({
+			 height: 500,               // set editor height
+		  minHeight: null,             // set minimum height of editor
+		  maxHeight: null,             // set maximum height of editor
+		  focus: true 
+	});
 	var files = $("#files").html();
 	var num = 0;
 	//var index = 1;
@@ -65,7 +74,7 @@
 		$("#files").append(files);
 		num++;
 	});
-		
+	
 
 </script>
 </body>
