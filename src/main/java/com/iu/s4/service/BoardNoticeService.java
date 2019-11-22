@@ -12,7 +12,7 @@ import com.iu.s4.dao.BoardNoticeDAO;
 import com.iu.s4.dao.NoticeFilesDAO;
 import com.iu.s4.model.BoardNoticeVO;
 import com.iu.s4.model.BoardVO;
-import com.iu.s4.model.NoticeFilesVO;
+import com.iu.s4.model.FilesVO;
 import com.iu.s4.util.FileSaver;
 import com.iu.s4.util.Pager;
 
@@ -40,7 +40,7 @@ public class BoardNoticeService implements BoardService {
 
 		//		BoardNoticeVO boardNoticeVO = (BoardNoticeVO)boardVO;
 
-		//		List<NoticeFilesVO> ar = noticeFilesDAO.fileList(boardVO.getNum());
+		//		List<FilesVO> ar = filesDAO.fileList(boardVO.getNum());
 
 		//		boardNoticeVO.setFiles(ar);
 
@@ -50,17 +50,17 @@ public class BoardNoticeService implements BoardService {
 	@Override
 	public int boardWrite(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
-		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
+		FilesVO filesVO = new FilesVO();
 		int result = boardNoticeDAO.boardWrite(boardVO);
 		//		System.out.println(file);
 		//		System.out.println(boardVO.getNum());
 		for(MultipartFile multipartFile:file) {
 //			if (multipartFile.getSize() != 0) {
 				String fileName = fileSaver.save(realPath, multipartFile);
-				noticeFilesVO.setFname(fileName);
-				noticeFilesVO.setNum(boardVO.getNum());
-				noticeFilesVO.setOname(multipartFile.getOriginalFilename());
-				result = noticeFilesDAO.fileWrite(noticeFilesVO);
+				filesVO.setFname(fileName);
+				filesVO.setNum(boardVO.getNum());
+				filesVO.setOname(multipartFile.getOriginalFilename());
+				result = noticeFilesDAO.fileWrite(filesVO);
 //			}
 
 		}
@@ -70,15 +70,15 @@ public class BoardNoticeService implements BoardService {
 	@Override
 	public int boardUpdate(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
-		NoticeFilesVO noticeFilesVO = new NoticeFilesVO();
+		FilesVO filesVO = new FilesVO();
 		int result = boardNoticeDAO.boardUpdate(boardVO);
 		for (MultipartFile multipartFile:file) {
 			if (multipartFile.getOriginalFilename() != "") {
 				String fileName = fileSaver.save(realPath, multipartFile);
-				noticeFilesVO.setFname(fileName);
-				noticeFilesVO.setNum(boardVO.getNum());
-				noticeFilesVO.setOname(multipartFile.getOriginalFilename());
-				result = noticeFilesDAO.fileWrite(noticeFilesVO);
+				filesVO.setFname(fileName);
+				filesVO.setNum(boardVO.getNum());
+				filesVO.setOname(multipartFile.getOriginalFilename());
+				result = noticeFilesDAO.fileWrite(filesVO);
 			}
 		}
 		return result;
@@ -90,11 +90,11 @@ public class BoardNoticeService implements BoardService {
 		return boardNoticeDAO.boardDelete(boardVO);
 	}
 
-	public int fileDelete(NoticeFilesVO noticeFilesVO) throws Exception{
-		return noticeFilesDAO.fileDelete(noticeFilesVO);
+	public int fileDelete(FilesVO filesVO) throws Exception{
+		return noticeFilesDAO.fileDelete(filesVO);
 	}
 
-	public NoticeFilesVO fileSelect(NoticeFilesVO noticeFilesVO) throws Exception{
-		return noticeFilesDAO.fileSelect(noticeFilesVO);
+	public FilesVO fileSelect(FilesVO filesVO) throws Exception{
+		return noticeFilesDAO.fileSelect(filesVO);
 	}
 }

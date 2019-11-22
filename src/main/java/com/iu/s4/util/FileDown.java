@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.servlet.view.AbstractView;
 
-import com.iu.s4.model.NoticeFilesVO;
+import com.iu.s4.model.FilesVO;
 
 @Component
 public class FileDown extends AbstractView{
@@ -22,12 +22,12 @@ public class FileDown extends AbstractView{
 	protected void renderMergedOutputModel(Map<String, Object> model, HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
 		
-		NoticeFilesVO noticeFilesVO = (NoticeFilesVO)model.get("file");
+		FilesVO filesVO = (FilesVO)model.get("file");
 		String board = (String)model.get("board");
 		String realPath = request.getSession().getServletContext().getRealPath("resources/upload/"+board);
 		System.out.println(realPath);
 		
-		File file = new File(realPath, noticeFilesVO.getFname());
+		File file = new File(realPath, filesVO.getFname());
 		
 		//1. 한글 처리
 		response.setCharacterEncoding("UTF-8");
@@ -36,7 +36,7 @@ public class FileDown extends AbstractView{
 		response.setContentLength((int)file.length());
 		
 		//3. download 시에 파일 이름 인코딩
-		String fileName = URLEncoder.encode(noticeFilesVO.getOname(), "UTF-8");
+		String fileName = URLEncoder.encode(filesVO.getOname(), "UTF-8");
 		
 		//4. header 설정														다운로드하는 이름
 		response.setHeader("Content-disposition", "attachment; filename=\""+fileName+"\"");

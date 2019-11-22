@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.iu.s4.model.BoardVO;
-import com.iu.s4.model.NoticeFilesVO;
+import com.iu.s4.model.FilesVO;
 import com.iu.s4.service.BoardNoticeService;
 import com.iu.s4.util.Pager;
 
@@ -137,9 +137,9 @@ public class NoticeController {
 	}
 
 	@PostMapping(value = "fileDelete")
-	public ModelAndView fileDelete(NoticeFilesVO noticeFilesVO) throws Exception{
+	public ModelAndView fileDelete(FilesVO filesVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		int result = boardNoticeService.fileDelete(noticeFilesVO);
+		int result = boardNoticeService.fileDelete(filesVO);
 		String msg = "Delete Fail";
 		if (result > 0) {
 			mv.addObject("result", result);
@@ -153,11 +153,11 @@ public class NoticeController {
 	}
 
 	@GetMapping(value ="fileDown")
-	public ModelAndView fileDown(NoticeFilesVO noticeFilesVO) throws Exception{
+	public ModelAndView fileDown(FilesVO filesVO) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		noticeFilesVO = boardNoticeService.fileSelect(noticeFilesVO);
+		filesVO = boardNoticeService.fileSelect(filesVO);
 
-		mv.addObject("file", noticeFilesVO);
+		mv.addObject("file", filesVO);
 		mv.addObject("board", "notice");
 		mv.setViewName("fileDown");
 

@@ -4,21 +4,21 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
   <mapper namespace="qnaFilesMapper">
-	<insert id="fileWrite" parameterType="QnaFilesVO" >
+	<insert id="fileWrite" parameterType="FilesVO" >
 		INSERT INTO qnafiles VALUES(
 			file_seq.nextval, #{num}, #{fname}, #{oname}
 		)
 	</insert>
-	<select id="fileList" parameterType="Integer" resultType="QnaFilesVO">
+	<select id="fileList" parameterType="Integer" resultType="FilesVO">
 		SELECT * FROM qnafiles
 		WHERE num = #{num}
 	</select>
-	<delete id="fileDelete" parameterType="QnaFilesVO">
+	<delete id="fileDelete" parameterType="FilesVO">
 		DELETE qnaFiles
 		WHERE fnum = #{fnum}
 		
 	</delete>
-	<select id="fileSelect" parameterType="QnaFilesVO" resultType="QnaFilesVO">
+	<select id="fileSelect" parameterType="FilesVO" resultType="FilesVO">
 		SELECT * FROM qnafiles
 		WHERE fnum = #{fnum}
 	</select>

@@ -12,7 +12,7 @@ import com.iu.s4.dao.BoardQnaDAO;
 import com.iu.s4.dao.QnaFilesDAO;
 import com.iu.s4.model.BoardQnaVO;
 import com.iu.s4.model.BoardVO;
-import com.iu.s4.model.QnaFilesVO;
+import com.iu.s4.model.FilesVO;
 import com.iu.s4.util.FileSaver;
 import com.iu.s4.util.Pager;
 
@@ -51,7 +51,7 @@ public class BoardQnaService implements BoardService {
 	@Override
 	public int boardWrite(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/qna");
-		QnaFilesVO qnaFilesVO = new QnaFilesVO();
+		FilesVO qnaFilesVO = new FilesVO();
 		int result = boardQnaDAO.boardWrite(boardVO);
 		
 		System.out.println(file);
@@ -84,12 +84,12 @@ public class BoardQnaService implements BoardService {
 		return boardQnaDAO.boardReply(boardVO);
 	}
 
-	public int fileDelete(QnaFilesVO qnaFilesVO) {
+	public int fileDelete(FilesVO qnaFilesVO) {
 		// TODO Auto-generated method stub
 		return qnaFilesDAO.fileDelete(qnaFilesVO);
 	}
 
-	public QnaFilesVO fileSelect(QnaFilesVO qnaFilesVO) {
+	public FilesVO fileSelect(FilesVO qnaFilesVO) {
 		// TODO Auto-generated method stub
 		return qnaFilesDAO.fileSelect(qnaFilesVO);
 	}

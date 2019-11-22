@@ -50,10 +50,10 @@
  		<result property="step" column="step" />
  		<result property="depth" column="depth"/>
  		<collection property="files" javaType="java.util.List" 
- 			ofType="QnaFilesVO" resultMap="fileResult" />
+ 			ofType="FilesVO" resultMap="fileResult" />
  		
  	</resultMap>
- 	<resultMap type="QnaFilesVO" id="fileResult">
+ 	<resultMap type="FilesVO" id="fileResult">
  		<id property="fnum" column="fnum"/>
 			<result property="fname" column="fname"/>
 			<result property="oname" column="oname"/>

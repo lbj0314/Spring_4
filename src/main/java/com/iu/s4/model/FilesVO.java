@@ -1,7 +1,6 @@
 package com.iu.s4.model;
 
-public class QnaFilesVO {
-	
+public class FilesVO {
 	private int fnum;
 	private int num;
 	private String fname;
@@ -31,5 +30,6 @@ public class QnaFilesVO {
 	public void setOname(String oname) {
 		this.oname = oname;
 	}
+	
 	
 }
