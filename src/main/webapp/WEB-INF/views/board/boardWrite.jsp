@@ -45,11 +45,50 @@
 	</form>
 <script type="text/javascript">
 	$("#contents").summernote({
-			 height: 500,               // set editor height
-		  minHeight: null,             // set minimum height of editor
-		  maxHeight: null,             // set maximum height of editor
-		  focus: true 
+			 height: 500,
+		  minHeight: null,
+		  maxHeight: null,
+		  callbacks :{
+			  onImageUpload: function(files, editor){
+				  uploadFile(files[0], this);
+			  }, //upload 끝
+			  onMediaDelete: function(files, editor) {
+				deleteFile(files[0], this);
+			} //delete 끝
+		  } // callback 끝
 	});
+	
+	function uploadFile(file, editor) {
+		//form tag 생성
+		var formData = new FormData();
+		formData.append('file', file);
+		$.ajax({
+			data : formData,
+			type : "POST",
+			url : "./summerFile",
+			enctype : "multipart/form-data",
+			contentType : false,
+			cache : false,
+			processData: false,
+			success : function(data) {
+				data = data.trim();
+				data = '../resources/upload/summerFile/'+data;
+				$(editor).summernote('insertImage', data);
+			}
+		});
+	}
+	
+	function deleteFile(file, editor) {
+		console.log(file);
+	}
+	$.ajax({
+		type : "POST",
+		url : "./summerFileDelete",
+		data : {
+			file : 
+		}
+	});
+	
 	var files = $("#files").html();
 	var num = 0;
 	//var index = 1;

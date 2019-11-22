@@ -163,4 +163,16 @@ public class NoticeController {
 
 		return mv;
 	}
+	
+	@PostMapping(value = "summerFile")
+	public ModelAndView summerFile(MultipartFile file, HttpSession session) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		String fileName = boardNoticeService.summerFile(file, session);
+		
+		mv.addObject("result", fileName);
+		mv.setViewName("common/common_ajaxResult");
+		
+		return mv;
+	}
+	
 }

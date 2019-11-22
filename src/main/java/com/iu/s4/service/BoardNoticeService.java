@@ -97,4 +97,9 @@ public class BoardNoticeService implements BoardService {
 	public FilesVO fileSelect(FilesVO filesVO) throws Exception{
 		return noticeFilesDAO.fileSelect(filesVO);
 	}
+	
+	public String summerFile(MultipartFile file, HttpSession session) throws Exception{
+		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
+		return fileSaver.save(realPath, file);
+	}
 }

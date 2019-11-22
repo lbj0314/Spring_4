@@ -15,7 +15,7 @@ public class FileSaver {
 
 	//1. Spring에서 제공하는 FileCopyUtils 클래스의 copy메서드 사용
 	public String save(String realPath, MultipartFile multipartFile) throws Exception{
-		//		System.out.println(realPath);
+		System.out.println(realPath);
 		File file = new File(realPath);
 
 		if(!file.exists()) {
