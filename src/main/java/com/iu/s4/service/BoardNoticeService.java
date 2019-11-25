@@ -1,5 +1,6 @@
 package com.iu.s4.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -55,13 +56,16 @@ public class BoardNoticeService implements BoardService {
 		//		System.out.println(file);
 		//		System.out.println(boardVO.getNum());
 		for(MultipartFile multipartFile:file) {
-//			if (multipartFile.getSize() != 0) {
+			if (multipartFile.getSize() != 0) {
 				String fileName = fileSaver.save(realPath, multipartFile);
 				filesVO.setFname(fileName);
 				filesVO.setNum(boardVO.getNum());
 				filesVO.setOname(multipartFile.getOriginalFilename());
 				result = noticeFilesDAO.fileWrite(filesVO);
-//			}
+				if (result < 1) {
+					throw new SQLException();
+				}
+			}
 
 		}
 		return result;
@@ -97,12 +101,12 @@ public class BoardNoticeService implements BoardService {
 	public FilesVO fileSelect(FilesVO filesVO) throws Exception{
 		return noticeFilesDAO.fileSelect(filesVO);
 	}
-	
+
 	public String summerFile(MultipartFile file, HttpSession session) throws Exception{
 		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
 		return fileSaver.save(realPath, file);
 	}
-	
+
 	public Boolean summerFileDelete(String file, HttpSession session) throws Exception{
 		String realPath = session.getServletContext().getRealPath("resources/upload/summerFile");
 		return fileSaver.fileDelete(realPath, file);
