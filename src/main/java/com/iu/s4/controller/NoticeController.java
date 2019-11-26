@@ -57,10 +57,11 @@ public class NoticeController {
 	}
 	//write
 	@RequestMapping(value = "noticeWrite", method = RequestMethod.GET)
-	public ModelAndView boardWrite() throws Exception{
+	public ModelAndView boardWrite(HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("board", "notice");
-		mv.setViewName("board/boardWrite");
+			mv.addObject("board", "notice");
+			mv.setViewName("board/boardWrite");
+		
 		return mv;
 
 	}
@@ -163,18 +164,18 @@ public class NoticeController {
 
 		return mv;
 	}
-	
+
 	@PostMapping(value = "summerFile")
 	public ModelAndView summerFile(MultipartFile file, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		String fileName = boardNoticeService.summerFile(file, session);
-		
+
 		mv.addObject("result", fileName);
 		mv.setViewName("common/common_ajaxResult");
-		
+
 		return mv;
 	}
-	
+
 	@PostMapping(value = "summerFileDelete")
 	public ModelAndView summerDelete(String file, HttpSession session) throws Exception{
 		ModelAndView mv = new ModelAndView();
@@ -187,5 +188,5 @@ public class NoticeController {
 		mv.setViewName("common/common_ajaxResult");
 		return mv;
 	}
-	
+
 }

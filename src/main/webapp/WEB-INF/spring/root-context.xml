@@ -40,7 +40,7 @@
 			<property name="dataSource" ref="dataSource"/>
 		</bean>
 		
-		<!-- Annotation -->
+		<!-- Tx Annotation -->
 		<tx:annotation-driven/>
 		
 </beans>
