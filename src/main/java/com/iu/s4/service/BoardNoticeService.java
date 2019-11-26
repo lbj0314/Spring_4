@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.iu.s4.dao.BoardNoticeDAO;
@@ -47,7 +48,7 @@ public class BoardNoticeService implements BoardService {
 
 		return boardNoticeDAO.boardSelect(boardVO);
 	}
-
+//	@Transactional
 	@Override
 	public int boardWrite(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
@@ -70,7 +71,7 @@ public class BoardNoticeService implements BoardService {
 		}
 		return result;
 	}
-
+//	@Transactional
 	@Override
 	public int boardUpdate(BoardVO boardVO, MultipartFile[] file, HttpSession session) throws Exception {
 		String realPath = session.getServletContext().getRealPath("resources/upload/notice");
