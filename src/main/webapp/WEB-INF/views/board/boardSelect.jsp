@@ -38,7 +38,7 @@ img{
 				</tr>
 			
 	</table>
-	<div class="form-group">
+	<div class="well">
 		${ vo.contents } 
 	</div>
 	<div>
@@ -48,8 +48,9 @@ img{
 		</c:forEach>
 	</div>
 		<div>
-
+			<c:if test="${member.id eq vo.writer }">
 			<a href="./${board}Update?num=${vo.num }" class="btn btn-success">Update</a>
+			</c:if>
 			<a href="./${board}Delete?num=${vo.num }" class="btn btn-danger">Delete</a>
 			<a href="./${board}Reply?num=${vo.num }" class="btn btn-info">Ref</a>
 			<a href="./${board}List" class="btn btn-primary">List</a>

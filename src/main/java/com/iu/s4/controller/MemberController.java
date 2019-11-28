@@ -65,6 +65,7 @@ public class MemberController {
 	//login
 	@GetMapping("memberLogin")
 	public void memberLogin() throws Exception {
+		
 	}
 
 	@PostMapping("memberLogin")
